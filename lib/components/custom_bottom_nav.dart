@@ -24,12 +24,12 @@ class _CustomBottomNavState extends State<CustomBottomNav> {
     return BottomNavigationBar(
       items: const <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.favorite),
-          label: 'Favourites',
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.contacts),
           label: 'Contacts',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.favorite),
+          label: 'Favourites',
         ),
       ],
       selectedItemColor: Colors.blue,

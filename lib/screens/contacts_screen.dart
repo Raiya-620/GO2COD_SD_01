@@ -1,22 +1,49 @@
 import 'package:contact_manager/screens/view_contact_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../contact_provider.dart';
 
 import 'add_contact_screen.dart';
 
-class ContactsScreen extends StatelessWidget {
+class ContactsScreen extends StatefulWidget {
+  // final List<Contact> contacts;
   const ContactsScreen({super.key});
 
   @override
+  State<ContactsScreen> createState() => _ContactsScreenState();
+}
+
+class _ContactsScreenState extends State<ContactsScreen> {
+  String query = '';
+
+  @override
   Widget build(BuildContext context) {
+    // Access the contacts list from the provider
+    final contactProvider = Provider.of<ContactProvider>(context);
+    final contacts = contactProvider.contacts;
+
+    // Filter contacts based on the search query
+    final filteredContacts = contacts
+        .where((contact) =>
+            contact.name.toLowerCase().contains(query.toLowerCase()) ||
+            contact.phone.contains(query))
+        .toList();
+
+    // Sort the contacts alphabetically
+    contacts
+        .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+
     return Scaffold(
       appBar: AppBar(
         actions: [
           IconButton(
             onPressed: () {
+              print("Add button pressed");
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const AddContactScreen(),
+                  builder: (context) => AddContactScreen(),
                 ),
               );
             },
@@ -30,109 +57,60 @@ class ContactsScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
-          child: ListView(
+          child: Column(
             children: [
-              const Text(
-                'Contacts',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Search',
-                  prefixIcon: const Icon(Icons.search),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(15.0),
+              if (contacts.isNotEmpty) // Show search bar only if contacts exist
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: TextField(
+                    onChanged: (value) {
+                      setState(() {
+                        query = value;
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Search Contacts',
+                      border: OutlineInputBorder(),
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 10.0,
-              ),
-              const Divider(),
-              ListTile(
-                onTap: () {},
-                leading: const Icon(Icons.person),
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
-                ),
-                subtitle: const Text('My Card'),
-              ),
-              ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ViewContactScreen(),
-                    ),
-                  );
-                },
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
-              ),
-              ListTile(
-                onTap: () {},
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
-              ),
-              ListTile(
-                onTap: () {},
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
-              ),
-              ListTile(
-                onTap: () {},
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
-              ),
-              ListTile(
-                onTap: () {},
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
-              ),
-              ListTile(
-                onTap: () {},
-                title: const Text(
-                  'Mohammed Suraiya',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8),
-                child: Divider(),
+
+// Display filtered contacts
+              Expanded(
+                child: filteredContacts.isEmpty
+                    ? const Center(child: Text('No Contacts Available'))
+                    : ListView.builder(
+                        itemCount: filteredContacts.length,
+                        itemBuilder: (context, index) {
+                          final contact = filteredContacts[index];
+                          return ListTile(
+                            onTap: () {
+                              print('clicked');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => ViewContactScreen(
+                                    contact: contact,
+                                  ),
+                                ),
+                              );
+                            },
+                            title: Text(contact.name),
+                            subtitle: Text(contact.phone),
+                            trailing: IconButton(
+                                onPressed: () {
+                                  contactProvider.addFavourite(contact);
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          '${contact.name} has been added to Favourites'),
+                                    ),
+                                  );
+                                },
+                                icon: Icon(Icons.favorite_border)),
+                          );
+                        },
+                      ),
               ),
             ],
           ),

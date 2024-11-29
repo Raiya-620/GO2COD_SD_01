@@ -1,9 +1,13 @@
+import 'package:contact_manager/contact_provider.dart';
 import 'package:contact_manager/screens/home_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    ChangeNotifierProvider(
+      create: (_)=> ContactProvider(),
+      child: const MyApp()),
   );
 }
 

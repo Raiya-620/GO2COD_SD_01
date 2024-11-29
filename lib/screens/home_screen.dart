@@ -3,6 +3,8 @@ import 'package:contact_manager/screens/contacts_screen.dart';
 import 'package:contact_manager/screens/favorates_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../contacts.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -13,6 +15,13 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   PageController pageController = PageController();
   int selectedIndex = 0;
+  List<Contact> contacts = [];
+
+  void addContact(Contact contact) {
+    setState(() {
+      contacts.add(contact);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 index; // Update the bottom nav when the page changes
           });
         },
-        children: const [
-          FavoratesScreen(),
-          ContactsScreen(),
+        children: const[
+           ContactsScreen(),
+           FavoratesScreen(),
         ],
       ),
       bottomNavigationBar: CustomBottomNav(
