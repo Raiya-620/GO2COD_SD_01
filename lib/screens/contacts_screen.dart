@@ -31,7 +31,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
         .toList();
 
     // Sort the contacts alphabetically
-    contacts
+    filteredContacts
         .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
     return Scaffold(

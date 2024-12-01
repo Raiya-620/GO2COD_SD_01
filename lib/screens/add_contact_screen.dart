@@ -136,7 +136,6 @@ class _AddContactScreenState extends State<AddContactScreen> {
                     return;
                   }
 
-               
                   Contact updatedContact = widget.contact == null
                       ? Contact(
                           id: uuid.v4(), name: name, phone: phone, email: email)

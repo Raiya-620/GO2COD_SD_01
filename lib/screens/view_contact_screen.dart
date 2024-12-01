@@ -66,7 +66,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
               padding: const EdgeInsets.only(right: 15.0),
               child: TextButton(
                 onPressed: () async {
-                  final updatedContact = await Navigator.push(
+                  final updatedContact = await Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => AddContactScreen(contact: contact),
@@ -79,7 +79,6 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                           updatedContact; // Update the contact with the edited data
                     });
                   }
-                
                 },
                 child: const Text(
                   'Edit',
