@@ -7,7 +7,7 @@ import '../contact_provider.dart';
 import 'add_contact_screen.dart';
 
 class ContactsScreen extends StatefulWidget {
-  // final List<Contact> contacts;
+
   const ContactsScreen({super.key});
 
   @override
@@ -19,18 +19,18 @@ class _ContactsScreenState extends State<ContactsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Access the contacts list from the provider
+  
     final contactProvider = Provider.of<ContactProvider>(context);
     final contacts = contactProvider.contacts;
 
-    // Filter contacts based on the search query
+   
     final filteredContacts = contacts
         .where((contact) =>
             contact.name.toLowerCase().contains(query.toLowerCase()) ||
             contact.phone.contains(query))
         .toList();
 
-    // Sort the contacts alphabetically
+ 
     filteredContacts
         .sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
@@ -59,7 +59,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              if (contacts.isNotEmpty) // Show search bar only if contacts exist
+              if (contacts.isNotEmpty) 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
@@ -75,7 +75,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                   ),
                 ),
 
-// Display filtered contacts
+
               Expanded(
                 child: filteredContacts.isEmpty
                     ? const Center(child: Text('No Contacts Available'))

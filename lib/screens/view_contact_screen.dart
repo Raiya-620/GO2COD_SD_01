@@ -19,7 +19,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
   void initState() {
     super.initState();
     contact =
-        widget.contact; // Initialize contact with the passed contact object
+        widget.contact; 
   }
 
   @override
@@ -59,7 +59,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
               },
               icon: const Icon(
                 Icons.delete,
-                // color: Colors.red,
+              
               ),
             ),
             Padding(
@@ -72,13 +72,7 @@ class _ViewContactScreenState extends State<ViewContactScreen> {
                       builder: (context) => AddContactScreen(contact: contact),
                     ),
                   );
-                  // If the updated contact is not null, update the UI
-                  if (updatedContact != null) {
-                    setState(() {
-                      contact =
-                          updatedContact; // Update the contact with the edited data
-                    });
-                  }
+                 
                 },
                 child: const Text(
                   'Edit',

@@ -1,7 +1,7 @@
-// contact_search_delegate.dart
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../contact_provider.dart'; // Adjust the path as needed
+import '../contact_provider.dart'; 
 
 class ContactSearchDelegate extends SearchDelegate<String> {
   @override
@@ -44,7 +44,7 @@ class ContactSearchDelegate extends SearchDelegate<String> {
           title: Text(contact.name),
           subtitle: Text(contact.phone),
           onTap: () {
-            // Perform any action when a contact is tapped
+           
             close(context, contact.name);
           },
         );
@@ -54,6 +54,6 @@ class ContactSearchDelegate extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return Container(); // You can implement a suggestion feature if needed
+    return Container();
   }
 }

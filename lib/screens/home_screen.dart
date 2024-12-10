@@ -31,7 +31,7 @@ class _HomeScreenState extends State<HomeScreen> {
         onPageChanged: (index) {
           setState(() {
             selectedIndex =
-                index; // Update the bottom nav when the page changes
+                index; 
           });
         },
         children: const[

@@ -29,7 +29,7 @@ class FavoratesScreen extends StatelessWidget {
                   trailing: IconButton(
                     icon: const Icon(Icons.favorite),
                     onPressed: () {
-                      // Optionally, remove from favorites if already added
+                     
                       contactProvider.removeFavourite(contact);
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(

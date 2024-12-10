@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'contacts.dart';
-// Make sure the Contact class is imported.
+
 
 class ContactProvider with ChangeNotifier {
   List<Contact> _contacts = [];
@@ -12,7 +12,7 @@ class ContactProvider with ChangeNotifier {
 
   void addContact(Contact contact) {
     _contacts.add(contact);
-    notifyListeners(); // Notify listeners when contacts change.
+    notifyListeners(); 
   }
 
 
@@ -45,11 +45,11 @@ class ContactProvider with ChangeNotifier {
   }
 
 
-  // Method to toggle favourite status
+
   void toggleFavouriteStatus(String contactId) {
     final contact = _contacts.firstWhere((c) => c.id == contactId);
-    contact.toggleFavouriteStatus(); // Call the toggle method in the Contact model
-    notifyListeners(); // Notify listeners of the change
+    contact.toggleFavouriteStatus(); 
+    notifyListeners(); 
   }
 
 
@@ -57,7 +57,7 @@ void editContact(Contact updatedContact) {
   final index = _contacts.indexWhere((c) => c.id == updatedContact.id);
   if (index != -1) {
     _contacts[index] = updatedContact;
-    notifyListeners(); // Notify listeners of the change
+    notifyListeners(); 
   }
 }
 
